@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Embedded Systems & IoT | Raspberry Pi LCD Temperature & Humidity</title>
+<style>
+:root{--ink:#172238;--muted:#5e6b80;--bg:#f4f7fb;--card:#fff;--line:#dce4ef;--blue:#155eef;--blue2:#eaf1ff;--teal:#087f8c;--green:#147d4b;--amber:#9a5b00;--red:#b42318;--shadow:0 8px 24px rgba(20,40,80,.07)}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:88px}body{margin:0;font:16px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg)}a{color:var(--blue)}.hero{background:linear-gradient(125deg,#101e3b,#163f78 60%,#087f8c);color:white;padding:42px max(22px,calc((100vw - 1180px)/2)) 36px}.eyebrow{text-transform:uppercase;letter-spacing:.12em;font-size:.76rem;font-weight:800;color:#b8d7ff}.hero h1{font-size:clamp(1.8rem,4vw,3rem);line-height:1.13;margin:.5rem 0 1rem;max-width:950px}.hero p{max-width:900px;color:#e1edff}.chips{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}.chip{border:1px solid #ffffff45;background:#ffffff12;border-radius:999px;padding:5px 11px;font-size:.85rem}.hero-grid{display:grid;grid-template-columns:2fr 1fr;gap:24px;align-items:end}.objective{background:#ffffff12;border:1px solid #ffffff30;border-radius:16px;padding:18px}.objective h3{margin-top:0}.nav{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 3px 10px #1020400b;overflow:auto}.nav-inner{max-width:1180px;margin:auto;display:flex;gap:4px;padding:8px 14px;white-space:nowrap}.nav a{text-decoration:none;color:#35445c;font-size:.87rem;font-weight:650;padding:8px 10px;border-radius:8px}.nav a:hover{background:var(--blue2);color:var(--blue)}main{max-width:1180px;margin:26px auto;padding:0 18px 60px}.section{margin:22px 0;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:clamp(18px,3vw,30px);box-shadow:var(--shadow)}h2{font-size:1.55rem;line-height:1.25;margin:0 0 15px}h3{font-size:1.13rem;margin:22px 0 8px}h4{margin:12px 0 6px}p{margin:8px 0 12px}.muted{color:var(--muted)}.lead{font-size:1.06rem}.callout{padding:14px 16px;border-left:4px solid var(--blue);background:var(--blue2);border-radius:8px;margin:14px 0}.warning{border-left-color:#d97706;background:#fff6e5}.success{border-left-color:var(--green);background:#eaf8f0}.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.mini{border:1px solid var(--line);border-radius:12px;padding:15px;background:#fff}.mini h3,.mini h4{margin-top:0}.table-wrap{overflow-x:auto}table{border-collapse:collapse;width:100%;margin:12px 0;font-size:.94rem}th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}th{background:#edf3fc}.diagram{background:#f8fbff;border:1px solid var(--line);border-radius:14px;padding:12px;overflow:auto}.diagram svg{display:block;width:100%;min-width:680px;height:auto}.tag{display:inline-block;padding:2px 8px;border-radius:999px;background:#edf3fc;color:#2e4b7d;font-size:.78rem;font-weight:700}.formula{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;background:#f3f6fa;padding:12px 14px;border-radius:9px;overflow-x:auto}.steps{counter-reset:step;list-style:none;padding:0}.steps li{counter-increment:step;padding:10px 12px 10px 48px;position:relative;border-bottom:1px solid #edf0f5}.steps li:before{content:counter(step);position:absolute;left:8px;top:10px;background:#eaf1ff;color:#155eef;border-radius:50%;width:28px;height:28px;text-align:center;line-height:28px;font-weight:800}.question{padding:16px 0;border-bottom:1px solid var(--line)}.question:last-child{border-bottom:0}.question p{font-weight:700}.options{display:grid;gap:7px}.options label{display:flex;gap:9px;align-items:flex-start;border:1px solid var(--line);border-radius:9px;padding:8px 10px;cursor:pointer}.options label:hover{background:#f7faff}.feedback{display:none;margin-top:9px;padding:10px 12px;border-radius:8px;background:#f1f5f9}.feedback.show{display:block}.correct{color:var(--green);font-weight:800}.incorrect{color:var(--red);font-weight:800}.btn{border:0;background:var(--blue);color:#fff;font-weight:750;border-radius:9px;padding:10px 16px;cursor:pointer;margin:8px 8px 0 0;font-size:.95rem}.btn.secondary{background:#e8edf5;color:#24344f}.score{font-weight:800;font-size:1.1rem;padding:12px;border-radius:10px;background:#edf3fc;margin-top:12px}.interview details{border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:9px 0}.interview summary{cursor:pointer;font-weight:750}.interview details p{margin-bottom:0}.lcd{background:#153d2b;color:#a9ff9a;font:700 1.15rem/1.6 ui-monospace,monospace;padding:14px;border:8px solid #263a34;border-radius:8px;max-width:410px;white-space:pre-wrap}.lcd-label{font-size:.8rem;color:var(--muted)}.sim-controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center}.sim-controls label{font-weight:650}.sim-controls input{width:95px;padding:7px;border:1px solid var(--line);border-radius:7px}.footer{padding:28px;text-align:center;color:var(--muted)}code{background:#eef2f7;padding:2px 5px;border-radius:4px}pre{overflow:auto;background:#101827;color:#e4efff;padding:16px;border-radius:10px;font-size:.87rem;line-height:1.55}pre code{background:transparent;color:inherit;padding:0;border-radius:0;white-space:pre}.small{font-size:.88rem}.pill-list{display:flex;flex-wrap:wrap;gap:7px}.pill-list span{background:#f0f4fa;border-radius:8px;padding:5px 9px;font-size:.87rem}
+@media(max-width:760px){.hero-grid,.grid2,.grid3{grid-template-columns:1fr}.hero{padding-top:30px}.section{padding:18px}main{padding:0 10px 40px}.nav a{padding:8px}}
+@media print{body{background:#fff;font-size:11pt}.hero{background:#fff;color:#111;padding:18px 0;border-bottom:2px solid #333}.hero p,.eyebrow{color:#333}.objective,.chips,.nav,.btn,.sim-controls{display:none!important}main{max-width:none;margin:0;padding:0}.section{box-shadow:none;border:0;border-bottom:1px solid #bbb;padding:14px 0;break-inside:avoid}.diagram{break-inside:avoid}a{color:#111;text-decoration:none}.interview details{break-inside:avoid}pre{white-space:pre-wrap;color:#111;background:#f3f3f3}pre code{background:transparent;color:inherit;padding:0}.feedback{display:block!important}.lcd{print-color-adjust:exact}}
+</style>
+</head>
+<body>
+<header class="hero">
+ <div class="eyebrow">Embedded Systems &amp; IoT · Unit: Product Building and Miniaturization</div>
+ <div class="hero-grid">
+  <div><h1>Interface an LCD with Raspberry Pi and Display Temperature &amp; Humidity</h1>
+   <p class="lead">A practical embedded-systems experiment connecting a digital environmental sensor to a Raspberry Pi and presenting live readings on a character LCD.</p>
+   <div class="chips"><span class="chip">B.E./B.Tech ECE</span><span class="chip">Experiment / Lab Learning</span><span class="chip">Offline interactive notes</span></div>
+  </div>
+  <div class="objective"><h3>Learning objectives</h3><ul><li>Explain sensor-to-display data flow.</li><li>Identify Raspberry Pi GPIO and I²C connections.</li><li>Write and debug a basic Python program.</li><li>Validate readings and troubleshoot hardware.</li></ul></div>
+ </div>
+</header>
+<nav class="nav"><div class="nav-inner">
+<a href="#overview">Overview</a><a href="#hardware">Hardware</a><a href="#diagram">Diagram</a><a href="#working">Working</a><a href="#code">Program</a><a href="#simulation">Interactive demo</a><a href="#gate">GATE practice</a><a href="#interview">Interview</a><a href="#quiz">10-question quiz</a><a href="#revision">Revision</a>
+</div></nav>
+<main>
+<section class="section" id="overview">
+<h2>1. Introduction, principle and objectives</h2>
+<p class="lead">The experiment measures ambient temperature and relative humidity using a digital sensor such as the DHT11 or DHT22 and displays the values on a 16×2 character LCD. The Raspberry Pi acts as the controller: it reads the sensor, formats the data, and updates the display.</p>
+<div class="grid3">
+ <div class="mini"><h3>Temperature</h3><p>Indicates how hot or cold the surrounding environment is; commonly shown in degrees Celsius (°C).</p></div>
+ <div class="mini"><h3>Relative humidity</h3><p>Amount of water vapour in air relative to saturation, expressed as a percentage (%RH).</p></div>
+ <div class="mini"><h3>LCD</h3><p>A low-power character display. A 16×2 LCD can show 16 characters on each of two lines.</p></div>
+</div>
+<h3>Operating principle</h3>
+<ol class="steps"><li>The sensor measures temperature and humidity and provides a digital signal.</li><li>Raspberry Pi GPIO receives the sensor data; a suitable software library decodes the sensor protocol.</li><li>Python checks whether a valid reading was received and converts values into readable strings.</li><li>The LCD receives commands and character data through an I²C backpack or parallel interface.</li><li>The program refreshes the display periodically to show the latest valid values.</li></ol>
+<div class="callout"><strong>Important:</strong> Raspberry Pi GPIO is 3.3 V logic and is not 5 V tolerant. Never connect a 5 V signal directly to a GPIO pin. Use a compatible sensor/interface and verify the module's voltage requirements.</div>
+<h3>Prerequisites and terminology</h3>
+<div class="pill-list"><span>GPIO: General-Purpose Input/Output</span><span>I²C: Inter-Integrated Circuit</span><span>SDA: Serial Data</span><span>SCL: Serial Clock</span><span>RH: Relative Humidity</span><span>Polling interval</span><span>Pull-up resistor</span><span>Driver/library</span></div>
+</section>
+
+<section class="section" id="hardware">
+<h2>2. Components and connection notes</h2>
+<div class="table-wrap"><table><thead><tr><th>Component</th><th>Typical choice</th><th>Function / design note</th></tr></thead><tbody>
+<tr><td>Controller</td><td>Raspberry Pi with 40-pin header</td><td>Runs Python and manages GPIO/I²C. Pin numbers below use BCM numbering where stated.</td></tr>
+<tr><td>Sensor</td><td>DHT11 or DHT22</td><td>Measures temperature and relative humidity. DHT22 generally has better range/accuracy; check the exact datasheet.</td></tr>
+<tr><td>Display</td><td>16×2 HD44780-compatible LCD with I²C backpack</td><td>Displays two lines of 16 characters. I²C reduces the number of GPIO wires.</td></tr>
+<tr><td>Power</td><td>Regulated supply / Pi 3.3 V rail as supported by modules</td><td>Use the voltage specified for each module. Ensure common ground.</td></tr>
+<tr><td>Pull-up</td><td>As specified by sensor/module</td><td>Many bare DHT data lines need a pull-up; some breakout boards already include one.</td></tr>
+<tr><td>Software</td><td>Python 3, sensor and LCD libraries</td><td>Library APIs vary by package and operating-system image.</td></tr>
+</tbody></table></div>
+<h3>Suggested I²C LCD wiring</h3>
+<div class="table-wrap"><table><tr><th>LCD backpack pin</th><th>Raspberry Pi connection</th><th>Notes</th></tr><tr><td>VCC</td><td>According to backpack specification</td><td>Some backpacks are powered at 5 V but pull SDA/SCL up to VCC. This can expose Pi GPIO to 5 V. Use a 3.3 V-compatible backpack or an appropriate bidirectional I²C level shifter.</td></tr><tr><td>GND</td><td>GND</td><td>Common ground is required.</td></tr><tr><td>SDA</td><td>GPIO 2 / physical pin 3</td><td>I²C data.</td></tr><tr><td>SCL</td><td>GPIO 3 / physical pin 5</td><td>I²C clock.</td></tr></table></div>
+<h3>Suggested DHT sensor wiring</h3>
+<div class="table-wrap"><table><tr><th>Sensor pin (verify module label)</th><th>Connection</th><th>Notes</th></tr><tr><td>VCC</td><td>Voltage supported by the sensor breakout</td><td>Use the module datasheet; for Pi GPIO data, ensure the data voltage never exceeds 3.3 V.</td></tr><tr><td>DATA</td><td>GPIO 4 (BCM numbering; physical pin 7)</td><td>Single-wire digital data. Add a pull-up to a safe logic voltage if required.</td></tr><tr><td>GND</td><td>GND</td><td>Common ground.</td></tr></table></div>
+<div class="callout warning"><strong>Before powering:</strong> check the exact sensor pin order, LCD backpack address and voltage, and whether the pull-up is already fitted. A common I²C address is 0x27 or 0x3F, but the actual address must be discovered rather than assumed.</div>
+</section>
+
+<section class="section" id="diagram">
+<h2>3. System block diagram</h2>
+<div class="diagram">
+<svg viewBox="0 0 900 330" role="img" aria-label="Block diagram: DHT sensor to Raspberry Pi to I2C LCD">
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#155eef"/></marker></defs>
+<rect x="24" y="82" width="210" height="120" rx="15" fill="#e7f8f4" stroke="#087f8c" stroke-width="2"/><text x="129" y="115" text-anchor="middle" font-size="19" font-weight="700" fill="#125b61">DHT11 / DHT22</text><text x="129" y="144" text-anchor="middle" font-size="15" fill="#125b61">Temperature + RH</text><text x="129" y="169" text-anchor="middle" font-size="13" fill="#125b61">Digital data signal</text>
+<rect x="345" y="52" width="220" height="180" rx="15" fill="#eaf1ff" stroke="#155eef" stroke-width="2"/><text x="455" y="91" text-anchor="middle" font-size="20" font-weight="700" fill="#173e82">Raspberry Pi</text><text x="455" y="121" text-anchor="middle" font-size="15" fill="#173e82">GPIO / I²C</text><text x="455" y="150" text-anchor="middle" font-size="15" fill="#173e82">Python application</text><text x="455" y="179" text-anchor="middle" font-size="13" fill="#173e82">Read → validate → format</text>
+<rect x="676" y="82" width="200" height="120" rx="15" fill="#fff3dc" stroke="#b7791f" stroke-width="2"/><text x="776" y="115" text-anchor="middle" font-size="19" font-weight="700" fill="#80530c">16×2 LCD</text><text x="776" y="144" text-anchor="middle" font-size="15" fill="#80530c">I²C backpack</text><text x="776" y="169" text-anchor="middle" font-size="13" fill="#80530c">Display values</text>
+<line x1="234" y1="142" x2="335" y2="142" stroke="#155eef" stroke-width="3" marker-end="url(#arrow)"/><text x="284" y="127" text-anchor="middle" font-size="12" fill="#155eef">DATA / GPIO</text>
+<line x1="565" y1="142" x2="666" y2="142" stroke="#155eef" stroke-width="3" marker-end="url(#arrow)"/><text x="615" y="127" text-anchor="middle" font-size="12" fill="#155eef">SDA + SCL</text>
+<text x="450" y="280" text-anchor="middle" font-size="15" fill="#5e6b80">All modules share a suitable ground; verify voltage levels before wiring.</text><text x="450" y="306" text-anchor="middle" font-size="12" fill="#5e6b80">Illustrative functional diagram — not a physical pin-layout drawing</text>
+</svg>
+</div>
+<h3>Signal flow</h3><p><strong>Physical quantity → sensor conversion → digital signal → Pi software → formatted text → LCD.</strong> The sensor and LCD use different interfaces: DHT data is a timed single-wire digital protocol, while the LCD backpack typically uses I²C.</p>
+</section>
+
+<section class="section" id="working">
+<h2>4. Working procedure and engineering considerations</h2>
+<ol class="steps"><li>Assemble the circuit with power disconnected. Verify pin labels and common ground.</li><li>Enable I²C in the Raspberry Pi configuration if the LCD uses I²C; reboot if required.</li><li>Install compatible Python packages for the chosen sensor and LCD backpack. Confirm library documentation for your OS version.</li><li>Run an I²C scan to find the LCD address, if the platform provides <code>i2cdetect</code>.</li><li>Read the sensor at its recommended interval. DHT sensors should not be polled continuously at very high rates; consult the datasheet/library.</li><li>Handle failed or checksum-invalid reads. Preserve the last valid reading or display a clear error rather than showing fabricated values.</li><li>Format output to fit 16 characters per line and refresh the LCD.</li></ol>
+<div class="grid2"><div class="mini"><h3>Advantages</h3><ul><li>Low-cost environmental monitoring.</li><li>Local, immediate visual feedback.</li><li>Useful for IoT prototypes and data-logging extensions.</li></ul></div><div class="mini"><h3>Limitations</h3><ul><li>DHT sensor accuracy and response time are limited.</li><li>LCD character count constrains presentation.</li><li>Library compatibility can vary by OS and hardware revision.</li><li>Wiring mistakes and unsafe logic levels can damage GPIO.</li></ul></div></div>
+<h3>Common misconceptions</h3><ul><li><strong>GPIO numbering:</strong> BCM GPIO 4 is physical header pin 7, not physical pin 4.</li><li><strong>I²C address:</strong> 0x27 is common, not guaranteed.</li><li><strong>Voltage:</strong> a module being powered at 5 V does not mean its logic signals are safe for a Pi.</li><li><strong>Humidity:</strong> %RH is not an absolute mass of water in air.</li></ul>
+</section>
+
+<section class="section" id="code">
+<h2>5. Example Python program</h2>
+<p>This is a teaching template for a Raspberry Pi, DHT22-style sensor library, and an I²C character LCD. Package names, class names, and LCD initialization differ across libraries; adapt the imports and constructor to the exact library installed. This page does not install packages or run hardware code.</p>
+<pre><code># Illustrative template — adapt to the selected libraries
+import time
+import board
+import adafruit_dht
+from RPLCD.i2c import CharLCD
+
+# Example: DHT22 data connected to BCM GPIO 4.
+sensor = adafruit_dht.DHT22(board.D4)
+
+# Change address to the address discovered on your hardware.
+lcd = CharLCD('PCF8574', 0x27, port=1, cols=16, rows=2)
+
+try:
+    while True:
+        try:
+            temperature_c = sensor.temperature
+            humidity_pct = sensor.humidity
+
+            if temperature_c is None or humidity_pct is None:
+                raise RuntimeError("No valid reading")
+
+            line1 = f"Temp: {temperature_c:4.1f} C"
+            line2 = f"Humidity:{humidity_pct:4.1f}%"
+            lcd.clear()
+            lcd.write_string(line1[:16].ljust(16))
+            lcd.crlf()
+            lcd.write_string(line2[:16].ljust(16))
+
+        except (RuntimeError, OSError) as error:
+            # Sensor read failures can be transient; do not invent readings.
+            lcd.clear()
+            lcd.write_string("Sensor read err")
+            lcd.crlf()
+            lcd.write_string("Retrying...")
+        time.sleep(2)
+
+finally:
+    lcd.clear()
+    sensor.exit()
+</code></pre>
+<div class="callout warning"><strong>Compatibility note:</strong> this combines commonly used library styles as an example, not a guaranteed drop-in program for every Raspberry Pi OS release. Check current library documentation, permissions, I²C setup, and the exact LCD backpack driver. Do not run without adapting it to the hardware.</div>
+<h3>Algorithm / pseudocode</h3><pre><code>INITIALIZE sensor, I2C bus and LCD
+LOOP:
+    read temperature and humidity
+    IF reading is valid:
+        format values for the two LCD rows
+        write both rows
+    ELSE:
+        show a sensor error / retry message
+    wait for the supported sampling interval
+CLEAN UP on program exit</code></pre>
+</section>
+
+<section class="section" id="simulation">
+<h2>6. Interactive illustrative LCD demo</h2>
+<p>This offline demo lets you change sample values and see how the LCD text can look. It is a UI illustration only; it is not a Multisim simulation, does not read a real sensor, and does not represent measured hardware output.</p>
+<div class="grid2">
+ <div class="mini"><h3>Simulated inputs</h3><div class="sim-controls"><label for="temp">Temperature (°C)</label><input id="temp" type="number" min="-40" max="80" step="0.1" value="26.4"></div><div class="sim-controls"><label for="hum">Humidity (%RH)</label><input id="hum" type="number" min="0" max="100" step="0.1" value="58.2"></div><button class="btn" onclick="updateLCD()">Update LCD</button><button class="btn secondary" onclick="randomReadings()">Generate sample</button><p id="simMsg" class="small muted">Values are illustrative.</p></div>
+ <div class="mini"><h3>16×2 character LCD preview</h3><div class="lcd" id="lcdScreen">Temp: 26.4 C
+Humidity: 58.2%</div><div class="lcd-label">16 character positions per row · illustrative</div></div>
+</div>
+<h3>Expected observations</h3><ul><li>Both values update when the application obtains valid sensor readings.</li><li>Display strings must be limited to 16 characters per row.</li><li>When sensor reads fail, robust code displays an error or retains the last valid reading.</li></ul>
+</section>
+
+<section class="section" id="gate">
+<h2>7. GATE-style practice questions</h2>
+<p>These are original practice questions, not claimed previous-year GATE questions. Select an answer and open “Explain answer” to review the reasoning.</p>
+<div id="gateQuestions"></div>
+</section>
+
+<section class="section interview" id="interview">
+<h2>8. Core electronics / embedded interview preparation</h2>
+<details><summary>1. Why use a Raspberry Pi for this experiment?</summary><p>It is a Linux-capable single-board computer with GPIO and I²C interfaces, so it can read a sensor, run Python logic, and drive a display. A microcontroller could also perform the task with a different software environment.</p></details>
+<details><summary>2. What is the difference between GPIO and I²C?</summary><p>GPIO is a general-purpose digital input/output pin interface. I²C is a synchronous two-wire serial bus using SDA and SCL, typically supporting multiple addressed devices on the same bus.</p></details>
+<details><summary>3. Why is a level shifter sometimes required for an LCD?</summary><p>Some I²C backpacks pull SDA/SCL up to 5 V. Raspberry Pi GPIO is 3.3 V logic and not 5 V tolerant, so a suitable 3.3 V-compatible interface or bidirectional level shifter may be necessary.</p></details>
+<details><summary>4. What does relative humidity mean?</summary><p>It is the ratio of actual water-vapour partial pressure to the saturation vapour pressure at the same temperature, expressed as a percentage.</p></details>
+<details><summary>5. Why can a DHT sensor read fail intermittently?</summary><p>Possible causes include timing sensitivity, incorrect wiring, missing pull-up, power instability, reading too frequently, a poor connection, or library/OS compatibility. Check the datasheet and log errors before changing hardware.</p></details>
+<details><summary>6. Why use an I²C LCD backpack?</summary><p>It reduces the number of Raspberry Pi pins needed compared with a typical parallel LCD interface, at the cost of an I²C controller/backpack and its driver requirements.</p></details>
+<details><summary>7. What is the purpose of a pull-up resistor on the sensor data line?</summary><p>It holds the data line at a defined high logic level when no device is pulling it low. The required value and whether one is already fitted depend on the sensor module and interface.</p></details>
+<details><summary>8. How would you debug a blank LCD?</summary><p>Check power, ground, contrast adjustment, wiring, I²C enabled state, detected address, backpack compatibility, library configuration, and whether the program reaches LCD initialization.</p></details>
+<details><summary>9. How do you make the program robust?</summary><p>Validate readings, handle transient exceptions, avoid displaying invalid data as real, use a suitable sampling interval, keep strings within display width, and clean up hardware resources on exit.</p></details>
+<details><summary>10. Can Multisim directly simulate the entire Raspberry Pi Python program and DHT sensor?</summary><p>Not typically as a complete native Raspberry Pi/Linux/Python execution environment. Multisim is primarily an electronic circuit simulator. Use a block/system diagram for the concept and test the actual GPIO software on a Pi or a compatible hardware/software emulator. Do not label a conceptual diagram as measured simulation output.</p></details>
+<details><summary>11. How could this become an IoT product?</summary><p>Add periodic logging, a network transport such as MQTT or HTTPS, timestamps, calibration/quality checks, and a dashboard or alerting service. Secure credentials and design for reconnects and sensor faults.</p></details>
+<details><summary>12. What test cases would you include?</summary><p>Normal readings, sensor disconnected, invalid checksum/read error, humidity boundary values, LCD address mismatch, power cycling, long-duration operation, and checking that displayed units and decimal formatting are correct.</p></details>
+</section>
+
+<section class="section" id="applications">
+<h2>9. Applications and industry relevance</h2>
+<div class="grid3"><div class="mini"><h3>Environmental monitoring</h3><p>Room comfort, storage spaces, greenhouses and laboratory environments.</p></div><div class="mini"><h3>Product prototyping</h3><p>Proof-of-concept dashboards for smart buildings and connected devices.</p></div><div class="mini"><h3>Validation</h3><p>Embedded firmware testing, sensor integration, interface bring-up and fault handling.</p></div></div>
+<h3>Practical engineering concerns</h3><ul><li><strong>Accuracy:</strong> compare sensor specifications with required product tolerance; calibrate if needed.</li><li><strong>Reliability:</strong> handle missing data, resets, loose connections and long-run drift.</li><li><strong>Power:</strong> consider display backlight current and total load on the supply.</li><li><strong>Safety:</strong> validate all voltage levels before connecting to GPIO.</li><li><strong>Career relevance:</strong> embedded firmware, IoT prototyping, hardware validation, test engineering and electronics R&amp;D.</li></ul>
+</section>
+
+<section class="section" id="quiz">
+<h2>10. Interactive topic quiz (10 questions)</h2>
+<p>Choose one answer for each question, then press <strong>Check answers</strong>. Unanswered questions count as unanswered, not correct. You can reset and try again.</p>
+<form id="topicQuiz"><div id="quizQuestions"></div><button type="button" class="btn" onclick="gradeQuiz()">Check answers</button><button type="button" class="btn secondary" onclick="resetQuiz()">Reset quiz</button><div id="quizScore" aria-live="polite"></div></form>
+</section>
+
+<section class="section" id="revision">
+<h2>11. Quick revision sheet</h2>
+<h3>Important definitions</h3><ul><li><strong>GPIO:</strong> configurable digital input/output pins on the controller.</li><li><strong>I²C:</strong> two-wire serial bus with data (SDA) and clock (SCL).</li><li><strong>16×2 LCD:</strong> character display with 2 rows and 16 character positions per row.</li><li><strong>Relative humidity:</strong> water-vapour partial pressure divided by saturation vapour pressure at the same temperature, multiplied by 100%.</li></ul>
+<h3>Formula / calculation reminder</h3><div class="formula">RH (%) = (actual water-vapour partial pressure / saturation vapour pressure at the same temperature) × 100%</div><p>This relationship defines relative humidity; in this experiment the digital sensor normally reports the temperature and RH directly, so the program does not need to calculate RH from raw physical quantities.</p>
+<div class="table-wrap"><table><tr><th>Item</th><th>Remember</th></tr><tr><td>Pi GPIO logic</td><td>3.3 V; not 5 V tolerant.</td></tr><tr><td>I²C wires</td><td>SDA = GPIO 2 / physical pin 3; SCL = GPIO 3 / physical pin 5.</td></tr><tr><td>Example DHT data</td><td>BCM GPIO 4 / physical pin 7; verify wiring and library configuration.</td></tr><tr><td>LCD text width</td><td>16 characters per line on a 16×2 LCD.</td></tr><tr><td>LCD address</td><td>Discover the real address; do not assume 0x27.</td></tr><tr><td>Error handling</td><td>Retry transient failures; never invent sensor readings.</td></tr></table></div>
+<h3>Fast troubleshooting</h3><div class="table-wrap"><table><tr><th>Symptom</th><th>Checks</th></tr><tr><td>LCD backlight on, no text</td><td>Contrast potentiometer, initialization, address, display library settings.</td></tr><tr><td>LCD not detected</td><td>I²C enabled, SDA/SCL wiring, power, ground, voltage compatibility, bus scan.</td></tr><tr><td>Sensor errors</td><td>Pin order, pull-up, power, sampling interval, library and permissions.</td></tr><tr><td>Garbled / clipped text</td><td>Correct LCD dimensions, clear/overwrite rows, restrict strings to 16 characters.</td></tr><tr><td>Pi restarts / unstable readings</td><td>Supply quality, wiring shorts, load, grounding and module voltage requirements.</td></tr></table></div>
+<h3>Procedure for a written lab answer</h3><ol><li>Aim: interface a temperature/humidity sensor and LCD with Raspberry Pi.</li><li>List components and show the block/wiring diagram.</li><li>Explain sensor → GPIO → Python → I²C LCD operation.</li><li>Write algorithm/program with error handling.</li><li>State expected observation: temperature in °C and humidity in %RH on the LCD.</li><li>Conclusion: successful display is verified only after testing the physical setup.</li></ol>
+</section>
+<div class="footer">Offline learning resource · Illustrative diagrams and demo only · Verify hardware-specific details against the datasheets and installed library documentation.</div>
+</main>
+<script>
+const gateData = [
+{d:"Easy",q:"Which pair of signals forms the usual I²C bus?",o:["TX and RX","SDA and SCL","MOSI and MISO","CLK and RESET"],a:1,e:"I²C uses SDA for serial data and SCL for serial clock."},
+{d:"Easy",q:"A 16×2 character LCD can show how many character positions at once?",o:["16","18","32","64"],a:2,e:"16 columns × 2 rows = 32 character positions."},
+{d:"Moderate",q:"Why must a Raspberry Pi GPIO not receive a direct 5 V logic signal?",o:["It only accepts AC","GPIO is not 5 V tolerant","I²C cannot use voltage","It will always read zero"],a:1,e:"Raspberry Pi GPIO uses 3.3 V logic and is not 5 V tolerant; use a compatible interface or level shifter."},
+{d:"Moderate",q:"BCM GPIO 2 corresponds to which standard 40-pin header position?",o:["Physical pin 2","Physical pin 3","Physical pin 5","Physical pin 7"],a:1,e:"BCM GPIO 2 is SDA on physical pin 3 on the standard Raspberry Pi 40-pin header."},
+{d:"Moderate",q:"If the I²C LCD does not appear at address 0x27, the best next step is to:",o:["Assume the Pi is broken","Hard-code 0x27 repeatedly","Scan the I²C bus and verify wiring","Increase sensor polling rate"],a:2,e:"Addresses vary by backpack. Scan the bus and check power, SDA/SCL, ground and compatibility."},
+{d:"Moderate",q:"What does relative humidity express?",o:["Temperature in Celsius","Water vapour relative to saturation at the same temperature","Air pressure in pascals","Water mass per litre only"],a:1,e:"RH is the ratio of actual to saturation water-vapour partial pressure at the same temperature, expressed as a percentage."},
+{d:"Difficult",q:"A 16-character LCD row is given the string 'Humidity: 58.2%'. How many characters does it contain?",o:["13","14","15","16"],a:2,e:"'Humidity:' has 9 characters including the colon; one space + '58.2' (4) + '%' (1) gives 15 total."},
+{d:"Difficult",q:"The sensor library occasionally throws a transient read error. Which response is most robust?",o:["Display 0.0 as a real measurement","Stop the whole application permanently","Handle the exception and retry at a suitable interval","Poll continuously with no delay"],a:2,e:"Transient failures should be handled explicitly; retry at the sensor's supported interval and avoid fabricating data."},
+{d:"Difficult",q:"A 5 V-powered LCD backpack pulls I²C lines up to 5 V. What is the safest design action?",o:["Connect directly because I²C is always 5 V safe","Use a 3.3 V-compatible backpack or suitable level shifter","Remove the Pi ground","Increase SCL frequency"],a:1,e:"The Pi's GPIO is not 5 V tolerant. Ensure SDA/SCL are pulled up to a safe voltage using a compatible interface."},
+{d:"Difficult",q:"Which statement about Multisim is most accurate for this complete experiment?",o:["It natively executes every Raspberry Pi Linux Python program","It guarantees actual DHT readings without hardware","It is primarily a circuit simulator, not a complete Pi/Linux execution environment","It replaces all sensor datasheets"],a:2,e:"Multisim is mainly for electronic circuit simulation. The full Python/GPIO system normally needs hardware or a suitable software/hardware emulator."}
+];
+function renderStaticQuestions(id,data,prefix){const root=document.getElementById(id);root.innerHTML=data.map((x,i)=>`<div class="question"><p>${i+1}. <span class="tag">${x.d}</span> ${x.q}</p><div class="options">${x.o.map((o,j)=>`<label><input type="radio" name="${prefix}${i}" value="${j}"> <span>${String.fromCharCode(65+j)}. ${o}</span></label>`).join("")}</div><details><summary>Explain answer</summary><p><strong>Answer: ${String.fromCharCode(65+x.a)}.</strong> ${x.e}</p></details></div>`).join("")}
+const quizData = [
+{q:"Which device measures the environment in this experiment?",o:["DHT11/DHT22 sensor","LCD backpack","HDMI monitor","Ethernet port"],a:0,e:"The DHT sensor measures temperature and relative humidity."},
+{q:"What is the usual I²C data line called?",o:["SCL","SDA","MISO","PWM"],a:1,e:"SDA carries serial data; SCL carries the serial clock."},
+{q:"What does RH stand for?",o:["Relative heat","Resistance humidity","Relative humidity","Read humidity"],a:2,e:"RH means relative humidity and is reported as %RH."},
+{q:"How many rows does a 16×2 LCD have?",o:["1","2","8","16"],a:1,e:"The notation 16×2 means 16 characters per row and two rows."},
+{q:"What is BCM GPIO 4 on a standard Pi header?",o:["Physical pin 3","Physical pin 5","Physical pin 7","Physical pin 11"],a:2,e:"BCM GPIO 4 maps to physical pin 7 on the standard 40-pin header."},
+{q:"Why is common ground important?",o:["It increases the LCD font size","It provides a shared voltage reference","It changes Celsius to Fahrenheit","It sets the I²C address"],a:1,e:"Signals are interpreted relative to a shared reference; grounds should be connected as required by the circuit."},
+{q:"What should software do when a sensor read is invalid?",o:["Invent a plausible value","Treat it as a valid zero","Handle the error and retry or indicate failure","Disable all safety checks"],a:2,e:"Invalid readings must not be shown as real measurements; handle the error clearly."},
+{q:"Which voltage warning is correct for Raspberry Pi GPIO?",o:["All GPIO pins tolerate 12 V","GPIO is 3.3 V logic and not 5 V tolerant","GPIO must always be driven at 5 V","Voltage never matters for I²C"],a:1,e:"Direct 5 V logic can damage GPIO. Check module levels and use a safe interface."},
+{q:"If LCD characters are cut off, what should be checked first in software?",o:["Display dimensions and string length","The room's humidity","Ethernet cable category","The monitor refresh rate"],a:0,e:"For a 16×2 LCD, ensure each output row is no more than 16 characters and that the configured dimensions are correct."},
+{q:"What is the role of the Raspberry Pi in this setup?",o:["Only a passive display","Controller that reads, processes and displays sensor data","A humidity-sensitive resistor","An I²C pull-up resistor"],a:1,e:"The Pi runs the program, reads sensor data, validates and formats it, and sends text to the LCD."}
+];
+function renderQuiz(){const root=document.getElementById("quizQuestions");root.innerHTML=quizData.map((x,i)=>`<div class="question" id="quizQ${i}"><p>${i+1}. ${x.q}</p><div class="options">${x.o.map((o,j)=>`<label><input type="radio" name="quiz${i}" value="${j}"> <span>${String.fromCharCode(65+j)}. ${o}</span></label>`).join("")}</div><div class="feedback" id="fb${i}"></div></div>`).join("")}
+function gradeQuiz(){let score=0,answered=0;quizData.forEach((x,i)=>{const chosen=document.querySelector(`input[name="quiz${i}"]:checked`);const fb=document.getElementById(`fb${i}`);fb.className="feedback show";if(!chosen){fb.innerHTML=`<span class="incorrect">Unanswered.</span> Correct answer: ${String.fromCharCode(65+x.a)}. ${x.e}`}else{answered++;if(Number(chosen.value)===x.a){score++;fb.innerHTML=`<span class="correct">Correct.</span> ${x.e}`}else{fb.innerHTML=`<span class="incorrect">Incorrect.</span> Correct answer: ${String.fromCharCode(65+x.a)}. ${x.e}`}}});document.getElementById("quizScore").innerHTML=`<div class="score">Score: ${score}/10 (${score*10}%) · Answered: ${answered}/10 · Unanswered: ${10-answered}</div>`}
+function resetQuiz(){document.getElementById("topicQuiz").reset();document.querySelectorAll("#quizQuestions .feedback").forEach(x=>{x.className="feedback";x.innerHTML=""});document.getElementById("quizScore").innerHTML=""}
+function updateLCD(){const t=Number(document.getElementById("temp").value),h=Number(document.getElementById("hum").value),msg=document.getElementById("simMsg");if(!Number.isFinite(t)||!Number.isFinite(h)||t < -40||t>80||h<0||h>100){msg.textContent="Enter temperature from −40 to 80 °C and humidity from 0 to 100 %RH.";msg.style.color="#b42318";return}const a=("Temp: "+t.toFixed(1)+" C").slice(0,16).padEnd(16," "),b=("Humidity:"+h.toFixed(1)+"%").slice(0,16).padEnd(16," ");document.getElementById("lcdScreen").textContent=a+"\n"+b;msg.textContent="Illustrative display updated; not a live sensor reading.";msg.style.color=""}
+function randomReadings(){document.getElementById("temp").value=(18+Math.random()*17).toFixed(1);document.getElementById("hum").value=(30+Math.random()*50).toFixed(1);updateLCD()}
+renderStaticQuestions("gateQuestions",gateData,"gate");renderQuiz();
+</script>
+</body>
+</html>
